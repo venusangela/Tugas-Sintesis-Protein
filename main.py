@@ -1,3 +1,7 @@
+# Nama: Venus Angela Kurniawan
+# NIM: 21/473226/PA/20373
+# Kelas: Bioinformatika KOM
+
 from Bio import Entrez, SeqIO
 
 class ProteinSynthesis():
