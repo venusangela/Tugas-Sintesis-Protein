@@ -2,6 +2,9 @@
 # NIM: 21/473226/PA/20373
 # Kelas: Bioinformatika KOM
 
+import warnings
+warnings.filterwarnings("ignore")
+
 from Bio import Entrez, SeqIO
 
 class ProteinSynthesis():
@@ -47,20 +50,37 @@ class ProteinSynthesis():
 def get_data_from_ncbi():
   Entrez.email = "venus.angela.kurniawan@mail.ugm.ac.id"
   accession_number = "NC_045512.2"
+  # accession_number = "MW400961.1"
   handle = Entrez.efetch(db="nucleotide", id=accession_number, rettype="gb", retmode="text")
   genome_data = SeqIO.read(handle, "genbank")
   handle.close()
   return genome_data
-  
+ 
 protein_sintesis = ProteinSynthesis()
 first_sequence = "GGATGCCAATG"
 second_sequence = "TCGGTGAATCTGTTTGAT"
-
-print(protein_sintesis.sintesis(first_sequence))
-print(protein_sintesis.sintesis(second_sequence))
-
 original_sequence = get_data_from_ncbi().seq
-amino_sequence = protein_sintesis.sintesis(original_sequence)
-amino_sequence_check = original_sequence.complement().transcribe().translate(stop_symbol=" ")
-if amino_sequence == amino_sequence_check:
-  print("Two sequence are equal")
+
+first_transcribed = protein_sintesis.transcribed(first_sequence)
+first_translation = protein_sintesis.translation(first_transcribed)
+
+print("\nSequence:", first_sequence)
+print("Transcibed to:", first_transcribed)
+print("Translate to:", first_translation)
+
+second_transcribed = protein_sintesis.transcribed(second_sequence)
+second_translation = protein_sintesis.translation(second_transcribed)
+
+print("\nSequence:", second_sequence)
+print("Transribed to:", second_transcribed)
+print("Translate to:", second_translation)
+
+amino_acid = protein_sintesis.sintesis(original_sequence)
+amino_acid_check = original_sequence.complement().transcribe().translate(stop_symbol=" ")
+print("\nOriginal Sequence:", original_sequence[:50])
+print("Amino Acid (Code):", amino_acid[:50])
+print("Amino Acid (Check):", amino_acid_check[:50])
+if amino_acid == amino_acid_check:
+  print("Two sequences are equal")
+else:
+  print("Two sequences are not equal")
