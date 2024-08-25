@@ -1,7 +1,3 @@
-# Nama: Venus Angela Kurniawan
-# NIM: 21/473226/PA/20373
-# Kelas: Bioinformatika KOM
-
 import warnings
 warnings.filterwarnings("ignore")
 
